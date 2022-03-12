@@ -3,6 +3,7 @@ package run
 import (
 	"log"
 	"sort"
+	"strings"
 
 	"github.com/joho/godotenv"
 )
@@ -15,12 +16,23 @@ func readEnvFileOrExit(filename string) map[string]string {
 	return envMap
 }
 
-func getKeysAndMaxKeyLen(envMap map[string]string) (keys []string, maxLen int) {
+func getKeysAndMaxKeyLen(envMap map[string]string, filterKey string) (keys []string, maxLen int) {
 	keys = make([]string, 0, len(envMap))
-	for k := range envMap {
-		keys = append(keys, k)
-		if len(k) > maxLen {
-			maxLen = len(k)
+	if filterKey == "" {
+		for k := range envMap {
+			keys = append(keys, k)
+			if len(k) > maxLen {
+				maxLen = len(k)
+			}
+		}
+	} else {
+		for k := range envMap {
+			if strings.Contains(k, filterKey) {
+				keys = append(keys, k)
+				if len(k) > maxLen {
+					maxLen = len(k)
+				}
+			}
 		}
 	}
 	sort.Strings(keys)
