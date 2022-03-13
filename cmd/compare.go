@@ -22,6 +22,7 @@ var compareCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(compareCmd)
+	rootCmd.CompletionOptions.DisableDefaultCmd = true
 
 	compareCmd.PersistentFlags().StringVarP(&run.CompareFlags.FilterKey, "filter-key", "f", "", "filter key")
 }
