@@ -26,8 +26,9 @@ func getKeysAndMaxKeyLen(envMap map[string]string, filterKey string) (keys []str
 			}
 		}
 	} else {
+		filterKey = strings.ToUpper(filterKey)
 		for k := range envMap {
-			if strings.Contains(k, filterKey) {
+			if strings.Contains(strings.ToUpper(k), filterKey) {
 				keys = append(keys, k)
 				if len(k) > maxLen {
 					maxLen = len(k)
