@@ -39,3 +39,18 @@ func getKeysAndMaxKeyLen(envMap map[string]string, filterKey string) (keys []str
 	sort.Strings(keys)
 	return
 }
+
+func mergeKeys(list ...[]string) []string {
+	allKeys := make([]string, 0)
+	keyExists := make(map[string]bool)
+	for _, keys := range list {
+		for i := range keys {
+			if !keyExists[keys[i]] {
+				allKeys = append(allKeys, keys[i])
+				keyExists[keys[i]] = true
+			}
+		}
+	}
+	sort.Strings(allKeys)
+	return allKeys
+}
